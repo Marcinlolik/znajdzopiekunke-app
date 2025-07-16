@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
@@ -17,59 +18,50 @@ export default function Home() {
         <section className={styles.section}>
           <h2>Pakiety opieki</h2>
           <div className={styles.cards}>
-            <div className={styles.card}>
-              <h3>Opieka doraźna</h3>
-              <p>Szybka pomoc na godziny – idealna przy nagłych sytuacjach.</p>
-              <strong>49 zł</strong>
-              <button>Zamów</button>
-            </div>
-            <div className={styles.card}>
-              <h3>Opieka dzienna</h3>
-              <p>Całodzienna opieka – np. gdy rodzina pracuje poza domem.</p>
-              <strong>199 zł</strong>
-              <button>Zamów</button>
-            </div>
-            <div className={styles.card}>
-              <h3>Opieka tygodniowa</h3>
-              <p>Stała obecność opiekunki przez 7 dni. Dla większego komfortu.</p>
-              <strong>1190 zł</strong>
-              <button>Zamów</button>
-            </div>
-            <div className={styles.card}>
-              <h3>Opieka miesięczna</h3>
-              <p>Pełne wsparcie przez cały miesiąc – dla osób wymagających stałej opieki.</p>
-              <strong>3990 zł</strong>
-              <button>Zamów</button>
-            </div>
+            {[
+              ["Opieka doraźna", "Szybka pomoc na godziny – idealna przy nagłych sytuacjach.", "49 zł"],
+              ["Opieka dzienna", "Całodzienna opieka – np. gdy rodzina pracuje poza domem.", "199 zł"],
+              ["Opieka tygodniowa", "Stała obecność opiekunki przez 7 dni.", "1190 zł"],
+              ["Opieka miesięczna", "Pełne wsparcie przez miesiąc – dla osób wymagających stałej opieki.", "3990 zł"]
+            ].map(([title, desc, price], i) => (
+              <div className={styles.card} key={i}>
+                <h3>{title}</h3>
+                <p>{desc}</p>
+                <strong>{price}</strong>
+                <button onClick={() => alert('Funkcja w budowie')}>Kup teraz</button>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className={styles.section}>
           <h2>Zostań opiekunką</h2>
-          <form className={styles.form}>
-            <input type="text" placeholder="Imię i nazwisko" required />
-            <input type="email" placeholder="E-mail" required />
-            <input type="tel" placeholder="Telefon" required />
-            <textarea placeholder="Doświadczenie" required />
-            <textarea placeholder="Kwalifikacje" required />
-            <textarea placeholder="Preferowane godziny" required />
+          <form className={styles.form} method="POST" action="https://formspree.io/f/xnqegogp">
+            <input type="text" name="name" placeholder="Imię i nazwisko" required />
+            <input type="email" name="email" placeholder="E-mail" required />
+            <input type="tel" name="phone" placeholder="Telefon" required />
+            <textarea name="experience" placeholder="Doświadczenie" required />
+            <textarea name="qualifications" placeholder="Kwalifikacje" required />
+            <textarea name="availability" placeholder="Preferowane godziny" required />
             <button type="submit">Wyślij zgłoszenie</button>
           </form>
         </section>
 
         <section className={styles.section}>
           <h2>Kontakt</h2>
-          <form className={styles.form}>
-            <input type="text" placeholder="Imię" required />
-            <input type="email" placeholder="E-mail" required />
-            <textarea placeholder="Wiadomość" required />
+          <form className={styles.form} method="POST" action="https://formspree.io/f/xnqegogp">
+            <input type="text" name="name" placeholder="Imię" required />
+            <input type="email" name="email" placeholder="E-mail" required />
+            <textarea name="message" placeholder="Wiadomość" required />
             <button type="submit">Wyślij wiadomość</button>
           </form>
         </section>
 
         <footer className={styles.footer}>
           <p>© 2025 Marcin L</p>
-          <p><a href="#">Polityka prywatności</a> | <a href="#">Regulamin</a></p>
+          <p>
+            <Link href="/polityka">Polityka prywatności</Link> | <Link href="/regulamin">Regulamin</Link>
+          </p>
         </footer>
       </div>
     </>
